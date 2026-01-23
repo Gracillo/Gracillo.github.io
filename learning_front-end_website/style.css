@@ -1,0 +1,1137 @@
+/* FONTS USED:
+   1. Orbitron
+      Designed by: Matt McInerney
+      License: SIL Open Font License 1.1 (via Google Fonts)
+   
+   2. DM Serif Text
+      Designed by: Colophon Foundry
+      License: SIL Open Font License 1.1 (via Google Fonts)
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Orbitron:wght@400..900&display=swap');
+:root {
+    --header-footer-colors: linear-gradient(0.25turn, rgb(22, 118, 33), rgb(33, 153, 151));
+    --nav-list-background-color: linear-gradient(0.25turn, rgb(22, 22, 22), rgb(115, 115, 111));
+    --nav-list-border-color: rgb(172, 173, 170);
+    --nav-footer-text-color: white;
+    --nav-list-li-padding: 1dvh 1.5dvh 1dvh 1.5dvh;
+    --nav-list-li-transition-duration: 0.3s;
+    --font-elegant: "DM Serif Text", serif;
+    --font-tech: "Orbitron", sans-serif;
+}
+
+body {
+    font-family: var(--font-tech); 
+    color: #333;
+    letter-spacing: 1px;
+}
+h1, h2, h3, h4, blockquote {
+    font-family: var(--font-elegant);
+    font-weight: 400;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+
+header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    padding:1dvh; 
+    background: var(--header-footer-colors); 
+    /* Sticky needs to have defined 'top' to work */
+    position: sticky;
+    top: 0; 
+    z-index: 1000; 
+    height: 8dvh;
+}
+
+/* Height of logo so it fits and doesn't overflow from header */
+#logo {
+    height: 8dvh;
+    width: auto;
+}
+
+/* Height of nav button so it fits and doesn't overflow from header */
+.navButton {
+    height: 8dvh;
+    width: auto;
+}
+
+
+
+/* Starting point for navList - not visible and proper visual placement in header */
+#navList {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: var(--nav-list-background-color);
+    opacity: 0;
+    pointer-events: none; /* Makes it unclickable when not visible */
+
+    /* Animation for opening and closing navList */
+    transition: opacity 0.4s ease-in-out;
+}
+
+#navList li:hover {
+    opacity: 0.7;
+}
+
+/* 
+Common styles for navList links 
+Colors and removing underlines
+*/
+#navList li a {
+    color: var(--nav-footer-text-color);
+}
+
+
+/* 
+This class will be added by js to #navList 
+Sets opacity to be visible when navList is opened
+*/
+#navList.open {
+    opacity: 1;
+    pointer-events: auto; /* Makes it clickable when visible */
+}
+
+@media only screen and (width < 800px) {
+    #navList li {
+        padding: var(--nav-list-li-padding);
+        text-align: center;
+        border-bottom: 1px solid var(--nav-list-border-color);
+        transition: opacity var(--nav-list-li-transition-duration);
+    }
+
+    .heroSection {
+        flex-direction: column;
+        text-align: center;
+    }
+    .heroText, .heroSection video {
+        max-width: 100%;
+        width: 100%;
+    }
+    .closingContent h2 {
+        font-size: 2rem;
+    }
+    .closingContent p {
+        font-size: 1rem;
+    }
+    .appHero {
+        flex-direction: column-reverse; /* Phone will be on top and text on the bottom */
+        justify-content: center;
+        text-align: center;
+        padding-top: 5dvh;
+    }
+
+    .appContent {
+        padding-right: 0;
+        margin-top: 4dvh;
+    }
+    
+    .downloadButtons {
+        justify-content: center;
+    }
+
+    .floatingPhone {
+        max-height: 40dvh;
+    }
+}
+
+@media only screen and (width >= 800px) {
+    #navList {
+        /* flex makes it to be in a one row */
+        display: flex; 
+        justify-content: center;
+    }
+    #navList li {
+        list-style: none;
+        padding: var(--nav-list-li-padding);
+        text-align: center;
+        border-right: 1px solid var(--nav-list-border-color);
+        border-left: 1px solid var(--nav-list-border-color);
+        transition: opacity var(--nav-list-li-transition-duration);
+    }
+
+    /* 
+    Selects ONLY the very first <fieldset> element (Contact Information) 
+    and ignores the second one (Message Details) 
+    */
+    fieldset:first-of-type {
+    /* Activates the Grid layout system for this container */
+    display: grid;
+
+    /* 
+    Creates two columns of equal width (1 fraction each). 
+    This puts "Name" and "Email" side-by-side. 
+    */
+    grid-template-columns: 1fr 1fr;
+    gap: 2dvh;
+}
+
+}
+
+
+
+
+/* Styles for scrollUp button */
+#scrollUp {
+    position: fixed;
+    bottom: 5dvh;
+    right: 5dvh;
+    z-index: 1001;
+    
+    /* Start hidden */
+    opacity: 0;
+    /* Prevent clicking when hidden */
+    pointer-events: none; 
+    
+    transition: opacity 0.3s, transform 0.3s;
+    cursor: pointer;
+    background: var(--header-footer-colors); 
+    border-radius: 30px;
+    padding: 1.5dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+/* Class added by JS when user scrolls down */
+#scrollUp.visible {
+    opacity: 1;
+    pointer-events: auto; /* Enable clicking */
+}
+
+#scrollUp:hover {
+    transform: translateY(-5px); /* Nice hover effect */
+    opacity: 0.9;
+}
+
+/* Ensure the SVG fits inside */
+#scrollUp img {
+    width: 3dvh;
+    height: 3dvh;
+    filter: invert(1); /* Makes black icon white*/
+}
+
+
+
+footer {
+    display: flex;
+    justify-content: space-evenly;
+    background: var(--header-footer-colors);
+    padding: 2dvh 1dvh;
+    color: var(--nav-footer-text-color);
+    flex-wrap: wrap; /* Makes it wrap if the screen becomes smaller */
+}
+
+footer section {
+    text-align: center;
+    margin-bottom: 2dvh; /* Makes space for sections if they fall under each other because of flex-wrap: wrap */
+}
+
+
+footer section ul {
+    padding: 0; /* Removes default padding for ul */
+    margin: 0; /* Removes default margin for ul */
+}
+
+
+
+footer section li, footer section p {
+    list-style: none;
+    padding: var(--nav-list-li-padding);
+    margin: 0; /* Removes default margin for li and p */
+}
+
+
+footer a {
+    color: var(--nav-footer-text-color);
+    transition: opacity 0.5s; /* Adds a smooth transition animation effect */
+}
+
+footer a:hover {
+    opacity: 0.75; /* Reduces opacity of a text if hovered */
+}
+
+
+footer h3 {
+    margin-bottom: 2dvh;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+}
+
+
+
+
+.addressClass::before {
+    /* content must exist to work but it's empty */
+    content: ''; 
+    /* Must be inline-block or block to take dimensions */
+    display: inline-block; 
+    width: 3dvh;  
+    height: 3dvh; 
+    /* This makes the background image scale to the specified width and height */
+    background-size: contain; 
+    /* Aligning the image vertically so it looks good near text */
+    vertical-align: middle;
+    margin-right: 0.5dvh;
+}
+
+#mail::before {
+    background-image: url(media/mail.svg);
+}
+#phoneNumber::before {
+    background-image: url(media/phone.svg);
+}
+#location::before {
+    background-image: url(media/locationHomePin.svg);
+}
+
+main {
+    display: flex;
+    background-color: #f8f9fa   ;
+    vertical-align: top;
+    flex-direction: column;
+}
+
+main section {
+    border-bottom: 0.25dvh solid blue;
+}
+.heroSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5dvh;
+    padding: 0 5%;
+}
+.heroSection h1 {
+    font-size: 3rem;
+    line-height: 1.1;
+    margin-bottom: 5dvh;
+    color: black;
+    text-transform: capitalize; /* every word starts from a capital letter */
+}
+
+.heroSection h2 {
+    font-size: 1.5rem;
+    font-weight: normal;
+    color: #555;
+    margin-bottom: 10dvh; /* Większy odstęp od przycisku BUY NOW */
+    max-width: 90%;
+}
+
+.heroSection video {
+    width: 45%;
+    height: auto;
+    border-radius: 10px; /* Adds rounded corners to the video */
+}
+
+.heroText {
+    max-width: 50%;
+}
+
+.CTA {
+    display: inline-flex;
+    background-color: rgb(122, 42, 243);
+    justify-content: center;
+    align-items: center;
+
+    padding: 2dvh 1.2dvh;
+    vertical-align: middle;
+}
+
+.CTA a {
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.trustedBy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2dvh;
+    
+}
+
+.trustedByImg {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5dvh;
+}
+
+.trustedByImg img{
+    height: 10dvh;
+    padding: 0dvh;
+    margin-bottom: 3dvh;
+}
+
+.trustedBy h1 {
+    font-size: 2rem;
+    font-weight: normal;
+    color: black;
+}
+
+.painPointTitle {
+    font-size: 1rem;
+    width: 100%;
+    text-align: center;
+
+}
+
+.painPointTitle h1 {
+    font-size: 2rem;
+}
+
+.painPointTitle h2 {
+    font-size: 1.5rem;
+}
+
+.painPoints {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    flex: 1;
+}
+
+.painPoint {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    padding: 2dvh;
+    margin: 2dvh;
+    color: white;
+    background: linear-gradient(0.25turn, rgb(138, 199, 7), rgb(28, 104, 154));
+    font-size: 1rem;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.painPoint img {
+    height: 100%;     
+    width: 100%; /* Makes the image take 100% width of its container */
+    max-width: 100%;  /* Makes the image fit within its container */
+    object-fit: cover;  /* Makes the image fit within its container */
+    margin-top: 1dvh;  
+    border-radius: 4px;
+}
+
+
+.features {
+    display: flex;
+    background-color: black;
+    color: white;
+    padding: 5dvh 10%;
+    text-align: center;
+    flex-direction: column;
+    gap: 5dvh;
+}
+
+.featuresTitle h1 {
+    font-size: 2.5rem;
+    margin-bottom: 5dvh;
+}
+
+.featuresTitle h2 {
+    font-size: 1.2rem;
+    color: #d2d1d1;
+}
+
+.featureCard {
+    background-color: #313030;
+    padding: 8dvh;
+    border-radius: 15px;
+    transition: transform 0.3s ease, background-color 0.3s;
+    border: 1px solid #3c3c3c;
+}
+
+/*
+ Styles for potential img in feature cards
+ Although not in current HTML, prepared for future use if I feel like adding images there
+ */
+.featureCard img {
+    height: 50%;      
+    width: 50%;        
+    max-width: 100%;    
+    object-fit: cover;  
+    border-radius: 4px; 
+}
+
+.featureCard:hover {
+    transform: translateY(-10px);
+    background-color: #3c3c3c;
+    border-color: rgb(30, 163, 45);
+}
+
+
+.testimonials {
+    display: flex;
+    flex-wrap: wrap;     /* Allows cards to wrap on smaller screens */
+    justify-content: center;
+    gap: 4.5dvh;             
+    padding: 5dvh 10%;
+    background-color: #f9f9f9;
+}
+
+.testimonialsTitle {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 3dvh;
+}
+
+.testimonialsTitle h1 {
+    font-size: 2.5rem;
+    color: #1a1a1a;
+}
+
+
+.testimonialCard {
+    background-color: white;
+    margin: 0; /* Resets the default margins */
+    padding: 4dvh;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    flex: 1;       
+    min-width: 280px;   
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.testimonialCard blockquote {
+    margin: 0 0 2dvh 0;    /* Reset margins + bottom spacing */
+    font-style: italic;
+    color: #555;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+
+.testimonialCard figcaption {
+    display: flex;         /* Makes the image and text appear side by side */
+    align-items: center;
+    gap: 2dvh;
+    border-top: 1px solid #eee;
+    padding-top: 2dvh;
+}
+
+
+.testimonialCard figcaption img {
+    width: 8dvh;
+    height: 8dvh;
+    border-radius: 50%;    /* Makes the image circular */
+    object-fit: cover;     /* Ensures the image covers the area without distortion */
+}
+
+
+.authorData {
+    display: flex;
+    flex-direction: column;
+}
+
+.authorData strong {
+    color: #1a1a1a;
+    font-size: 1rem;
+}
+
+.authorData span {
+    font-size: 0.85rem;
+    color: #888;
+    text-transform: uppercase;
+}
+
+
+
+.closingSection {
+    background: linear-gradient(0.35turn, #1a1a1a, rgb(22, 118, 33));
+    min-height: 50dvh;       
+    display: flex;
+    justify-content: center;      
+    align-items: center;          
+    text-align: center;
+    padding: 2.5dvh;
+    color: white;
+}
+
+.closingContent {
+    max-width:70dvh; 
+}
+
+.closingContent h2 {
+    font-size: 3rem;
+    margin-bottom: 2.5dvh;
+    font-weight: bold;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.closingContent p {
+    font-size: 1.3rem;
+    margin-bottom: 5dvh;
+    line-height: 1.5;
+    color: #e0e0e0;
+}
+
+.closingBtn {
+    display: inline-block;
+    padding: 1.8dvh 4.8dvh;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    background-color: rgb(22, 118, 33);
+    border-radius: 50px;
+    transition: transform 0.3s, background-color 0.3s;
+    border: 2px solid transparent;
+}
+
+.closingBtn:hover {
+    background-color: transparent;
+    border-color: white;
+    transform: scale(1.05);
+}
+
+
+.contactSection {
+    max-width: 800px;
+    margin: 0 auto; 
+    padding: 5dvh 5%; 
+}
+
+.contactSection h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #1a1a1a;
+    margin-bottom: 1dvh;
+}
+
+.contactSection p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 4dvh;
+    font-size: 1.1rem;
+}
+
+
+.contactForm {
+    background-color: white;
+    padding: 4dvh; 
+    border-radius: 25px; 
+    box-shadow: 0 1dvh 3dvh rgba(0,0,0,0.05);
+    border: 1px solid #eaeaea;
+}
+
+
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 3dvh 0;
+}
+
+legend {
+    font-size: 1.2rem;
+    font-family: var(--font-tech);
+    font-weight: 700;
+    font-weight: bold;
+    color: rgb(22, 118, 33);
+    margin-bottom: 2dvh;
+    padding-bottom: 0.5dvh;
+    width: 100%;
+    border-bottom: 2px solid #f0f0f0;
+    display: block;
+}
+
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2dvh;
+    position: relative;
+}
+
+label {
+    margin-bottom: 0.8dvh;
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+    width: 100%;
+    padding: 1.2dvh 15px;
+    font-family: var(--font-tech);
+    font-size: 0.9rem;
+    color: #333;
+    background-color: #fafafa;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    
+    box-sizing: border-box; 
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none; /* Removes default outline */
+    border-color: rgb(22, 118, 33);
+    background-color: white;
+    box-shadow: 0 0 0 0.4dvh rgba(22, 118, 33, 0.1);
+}
+
+
+textarea {
+    min-height: 12dvh;
+}
+
+
+.checkboxGroup {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.2dvh;
+    margin-bottom: 3dvh;
+}
+
+.checkboxGroup input {
+    
+    width: 2.2dvh;
+    height: 2.2dvh;
+    margin-top: 0.3dvh;
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    accent-color: rgb(22, 118, 33);
+}
+
+.checkboxGroup label {
+    font-weight: normal;
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.checkboxGroup a {
+    color: rgb(22, 118, 33);
+    text-decoration: underline;
+}
+
+
+.submitBtn {
+    width: 100%;
+    padding: 1.5dvh;
+    background-color: rgb(22, 118, 33);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.submitBtn:hover {
+    background-color: #145a1b;
+    transform: translateY(-0.2dvh);
+}
+
+.submitBtn:active {
+    transform: translateY(0);
+}
+
+
+.sectionFAQ {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 5dvh 5%;
+    min-height: 60vh; /* Make sure the footer doesn't get too close when there are few questions */
+}
+
+.faqHeader {
+    text-align: center;
+    margin-bottom: 5dvh;
+}
+
+.faqHeader h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1dvh;
+}
+
+.faqHeader p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+
+details {
+    background-color: white;
+    margin-bottom: 2dvh;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+details[open] {
+    border-color: rgb(22, 118, 33);
+    box-shadow: 0 8px 15px rgba(22, 118, 33, 0.1);
+}
+
+
+summary {
+    padding: 20px;
+    font-size: 1.1rem;
+    font-weight: 600; 
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #1a1a1a;
+}
+
+
+
+summary::after {
+    content: '+';
+    font-size: 1.5rem;
+    color: rgb(22, 118, 33);
+    font-weight: bold;
+    transition: transform 0.3s ease;
+    margin-left: 10px;
+}
+
+/* Rotates the plus sign when the FAQ item is open so it looks like an X*/
+details[open] summary::after {
+    transform: rotate(45deg);
+}
+
+
+details p {
+    padding: 1dvh 3dvh 5dvh 3dvh;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+    border-top: 1px solid #f9f9f9;
+
+    /* Animation for text appearance */
+    animation: fadeIn 0.5s ease;
+}
+
+/*
+Animation for text
+It appears with a fade-in and slight upward movement
+*/
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+
+.appHero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 85dvh; /* covers most of the viewport height */
+    padding: 0 10%;
+    background-color: #1a1a1a;
+    color: white;
+    overflow: hidden; /* Prevents overflow of floating phone */
+    padding-bottom: 5dvh;
+}
+
+
+.appContent {
+    flex: 1;
+    padding-right: 5dvh;
+}
+
+.appContent h1 {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 2dvh;
+}
+
+.appContent p {
+    font-size: 1.2rem;
+    color: #ccc;
+    margin-bottom: 5dvh;
+    max-width: 500px;
+    line-height: 1.6;
+}
+
+
+.downloadButtons {
+    display: flex;
+    gap: 3dvh;
+    flex-wrap: wrap;
+}
+
+.storeBtn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #333;
+    color: white;
+    padding: 1.2dvh 3dvh;
+    border-radius: 10px;
+    border: 1px solid #444;
+    transition: 0.3s ease;
+    min-width: 140px;
+}
+
+.storeBtn:hover {
+    background-color: rgb(22, 118, 33); 
+    border-color: rgb(22, 118, 33);
+    transform: translateY(-3px);
+}
+
+.smallText {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
+.bigText {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+
+.appVisual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+.floatingPhone {
+    max-height: 70dvh;
+    width: auto;
+
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Definicja animacji lewitowania */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+
+.appFeatures {
+    background-color: #121212;
+    color: white;
+    padding: 5dvh 10%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 3dvh;
+}
+
+.appFeatureItem {
+    text-align: center;
+    max-width: 300px;
+}
+
+.appFeatureItem h3 {
+    font-family: var(--font-elegant);
+    color: rgb(22, 118, 33);
+    margin-bottom: 1dvh;
+}
+
+.appFeatureItem p {
+    color: #999;
+    font-size: 0.9rem;
+}
+
+
+
+
+
+
+.productShop {
+    display: grid;
+    /* 
+       
+        repeat(...): 
+            Tells the browser to generate multiple columns automatically so there is no need to
+            have them defined manually one by one.
+
+        auto-fill: 
+            Instead of setting a fixed number of columns,
+            it calculates how many columns of the specified size can fit in the available space without breaking the minimum size rule
+        
+
+        minmax(280px, 1fr): 
+            This defines the rules for a single column's width.
+          
+            MIN (280px):
+            The column is strictly forbidden from being narrower than 280px. 
+            This ensures content (images/text) never gets crushed or unreadable.
+            
+            MAX (1fr):
+            '1fr' means "1 fraction of the available space". 
+            If the browser fits 3 columns of 280px (840px total) into a 1000px container,
+            there are 160px of empty space left. The '1fr' tells the columns 
+            to stretch out and share that empty space equally so the row is full.
+    */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 3.5dvh;
+    padding: 2.5dvh 5%;
+    min-height: 50dvh;
+}
+
+.filterProducts {
+    padding: 2.5dvh 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    background-color: #fafafa;
+}
+
+.filterContainer label {
+    font-weight: bold;
+    margin-right: 1.5dvh;
+}
+
+.filterContainer select {
+    padding: 1dvh;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+
+.productCard {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    padding: 2.5dvh;
+    text-align: center; 
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.productCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1.5dvh 2.5dvh rgba(0,0,0,0.1);
+    border-color: rgb(22, 118, 33);
+}
+
+
+.productCard img {
+    width: 100%;
+    height: 25dvh;
+    object-fit: contain; 
+    margin-bottom: 1dvh;
+}
+
+
+.productCard h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.2dvh;
+    color: #1a1a1a;
+}
+
+
+.productCard .price {
+    font-size: 1.3rem;
+    color: rgb(22, 118, 33);
+    font-weight: bold;
+    margin-bottom: 2.5dvh;
+}
+
+
+.addToCartBtn {
+    background-color: #1a1a1a;
+    color: white;
+    border: none;
+    padding: 1.5dvh;
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: var(--font-tech);
+    transition: background-color 0.3s;
+}
+
+.addToCartBtn:hover {
+    background-color: rgb(22, 118, 33);
+}
+
+
+
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 10000;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px); /* Adds a blur effect */
+}
+
+.modalContent {
+    background-color: white;
+    padding: 4dvh;
+    border-radius: 15px;
+    max-width: 50dvh;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 2.5dvh 5.5dvh rgba(0,0,0,0.5);
+    border: 2px solid rgb(22, 118, 33);
+    font-family: sans-serif;
+    animation: popIn 0.5s ease;
+}
+
+.modalContent h3 {
+    color: rgb(22, 118, 33);
+    margin-top: 0;
+}
+
+
+.closeModal {
+    position: absolute;
+    top: 1.5dvh;
+    right: 2.5dvh;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.closeModal:hover {
+    color: red;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
