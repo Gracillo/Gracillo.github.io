@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | L'AURA Homme</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+
+    <div id="disclaimerModal" class="modalOverlay">
+        <div class="modalContent">
+            <span class="closeModal">&times;</span>
+            <h3>Student Project</h3>
+            <p>This is a fictional website created for an "IT Tools in Marketing" project.</p>
+        </div>
+    </div>
+
+    <header>
+        <a href="index.html">
+            <h1 style="color:white; margin:0; letter-spacing:5px;">L'AURA</h1>
+        </a>
+        <img src="media/menuOpen.svg" alt="Menu" class="navButton">
+        <nav>
+            <ul id="navList">
+                <li><a href="index.html">Runway</a></li>
+                <li><a href="shop.html">Collections</a></li>
+                <li><a href="contact.html">Private Client</a></li>
+                <li><a href="faq.html">Service</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="contactSection">
+            <h1>L'Atelier Private Client</h1>
+            <p>Schedule a fitting at our Paris flagship or request a digital consultation.</p>
+
+            <form class="contactForm">
+                <div class="formGroup">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="John Doe">
+                </div>
+
+                <div class="formGroup">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="john@example.com">
+                </div>
+
+                <div class="formGroup">
+                    <label for="subject">Topic</label>
+                    <select id="subject">
+                        <option value="fitting">In-Person Fitting (Paris)</option>
+                        <option value="digital">Digital Consultation</option>
+                        <option value="press">Press & Media</option>
+                        <option value="other">General Inquiry</option>
+                    </select>
+                </div>
+
+                <div class="formGroup">
+                    <label for="message">Message</label>
+                    <textarea id="message" rows="5" placeholder="Tell us about your requirements..."></textarea>
+                </div>
+
+                <button type="submit" class="submitBtn">Request Appointment</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <section>
+            <h3>L'AURA Homme</h3>
+            <ul>
+                <li>12 Rue du Faubourg Saint-Honoré</li>
+                <li>75008 Paris, France</li>
+                <li>+33 1 44 55 66 77</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Legal</h3>
+            <ul>
+                <li>Privacy Policy</li>
+                <li>Terms of Service</li>
+            </ul>
+        </section>
+    </footer>
+
+</body>
+</html>
