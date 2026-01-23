@@ -450,69 +450,11 @@ details p {
     animation: fadeIn 0.5s ease;
 }
 
-.collectionHero {
-            height: 40vh;
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2071&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            margin-top: 60px; /* offset na header */
-        }
 
-        .filterSection {
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 1px solid #eee;
-        }
-
-        .filterSection h2 {
-            font-weight: 300;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-size: 1rem;
-        }
-
-        .filterButtons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .filterBtn {
-            background: none;
-            border: 1px solid #ddd;
-            padding: 10px 25px;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-        }
-
-        .filterBtn:hover, .filterBtn.active {
-            background: black;
-            color: white;
-            border-color: black;
-        }
-
-        /* Grid produktów - wykorzystujemy klasy z index.html, ale upewniamy się, że są responsywne */
-        .productGridPage {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 40px;
-            padding: 50px 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-5px); }
     to { opacity: 1; transform: translateY(0); }
 
 }
+
